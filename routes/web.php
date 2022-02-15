@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AppController::class, 'index']);
+Route::post('/logout', [AppController::class, 'logout']);
+Route::get('/listen', [AppController::class, 'listen']);
+Route::get('/scan/{token}', [AppController::class, 'registerScanner']);
+Route::get('/scan', [AppController::class, 'remoteScan']);
+Route::post('/scans', [AppController::class, 'postScan']);
