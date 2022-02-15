@@ -32,6 +32,8 @@ class RemoteScan extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['session_id', 'content', 'seen_at'];
+
     public function session()
     {
         return $this->belongsTo(Session::class);

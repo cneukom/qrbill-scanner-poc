@@ -29,6 +29,8 @@ class Session extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['token'];
+
     public function remoteScans()
     {
         return $this->hasMany(RemoteScan::class);

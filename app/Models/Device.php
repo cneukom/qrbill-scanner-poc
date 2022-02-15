@@ -30,6 +30,8 @@ class Device extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['session_id', 'seen_at'];
+
     public function session()
     {
         return $this->belongsTo(Session::class);

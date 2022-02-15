@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -230,6 +230,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+    ],
+
+    'poll' => [
+        'attempts' => env('APP_POLL_ATTEMPTS', 60),
+        'break_ms' => env('APP_POLL_BREAK_MS', 500),
     ],
 
 ];
