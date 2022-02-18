@@ -20,7 +20,12 @@ export default class Scanner {
     }
 
     async init() {
-        let devices = await BrowserQRCodeReader.listVideoInputDevices();
+        let devices;
+        try {
+            devices = await BrowserQRCodeReader.listVideoInputDevices();
+        } catch(e) {
+            this.#previewContainer.innerHTML = '<div class="alert alert-danger">'+e+'</div>';
+        }
         if (devices.length === 0) {
             this.#previewContainer.innerHTML = '<div class="alert alert-warning">No cameras found. Please try the Smartphone PoC.</div>';
         } else {
