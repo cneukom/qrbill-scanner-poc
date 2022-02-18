@@ -9,7 +9,7 @@
                 </p>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-12 col-md-6">
                         <h4>Scan a QR bill</h4>
                         <p>In order to scan a QR bill, you have the following options:</p>
 
@@ -32,7 +32,10 @@
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-webcam" role="tabpanel"
                                  aria-labelledby="pills-webcam-tab">
-                                Scanner canvas to be initialized
+                                <div data-preview>
+                                    <select class="form-select"></select>
+                                    <video class="mt-3"></video>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="pills-smartphone" role="tabpanel"
                                  aria-labelledby="pills-smartphone-tab">
@@ -43,7 +46,7 @@
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-12 col-md-6">
                         <h4>Check the QR bill data</h4>
                         <div data-bill-display-poll="{{ route('listen') }}">
                             Placeholder: display bill information
