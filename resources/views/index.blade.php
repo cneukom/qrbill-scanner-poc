@@ -41,7 +41,7 @@
                                  aria-labelledby="pills-smartphone-tab">
                                 <p>Scan this QR code with your mobile phone. Hint: some browsers (e.g. Firefox Mobile)
                                     come with an integrated QR code scanner.</p>
-                                <canvas data-qr-link="{{ externalize(route('registerScanner', [$token])) }}"></canvas>
+                                <canvas data-qr-link="{{ route('registerScanner', [$token]) }}"></canvas>
                             </div>
                         </div>
                     </div>
