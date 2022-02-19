@@ -1,4 +1,5 @@
 import {BrowserQRCodeReader} from "@zxing/browser";
+import QRBill from "./QRBill";
 
 export default class Scanner {
     #previewContainer;
@@ -47,7 +48,8 @@ export default class Scanner {
 
         this.#controls = await new BrowserQRCodeReader().decodeFromVideoDevice(deviceId, this.#video, (result) => {
             if (result) {
-                this.#display.update(result.text);
+                let bill = new QRBill(result.text);
+                this.#display.update(bill);
             }
         });
     }

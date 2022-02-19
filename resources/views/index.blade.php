@@ -49,7 +49,32 @@
                     <div class="col-12 col-md-6">
                         <h4>Check the QR bill data</h4>
                         <div data-bill-display-poll="{{ route('listen') }}">
-                            Placeholder: display bill information
+                            <div data-not-available-hint class="alert alert-info">Please scan a QR bill.</div>
+                            <table data-bill-data-table class="table d-none">
+                                <tr>
+                                    <th>Creditor Name</th>
+                                    <td data-creditor></td>
+                                </tr>
+                                <tr>
+                                    <th>Amount</th>
+                                    <td>
+                                        <span data-amount></span>
+                                        <span data-currency></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Debtor Name</th>
+                                    <td data-debtor></td>
+                                </tr>
+                                <tr>
+                                    <th>Reference</th>
+                                    <td data-reference></td>
+                                </tr>
+                                <tr>
+                                    <th>Message</th>
+                                    <td data-message></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
