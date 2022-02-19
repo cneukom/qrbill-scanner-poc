@@ -33,7 +33,8 @@
                             <div class="tab-pane fade show active" id="pills-webcam" role="tabpanel"
                                  aria-labelledby="pills-webcam-tab">
                                 <div data-preview>
-                                    <select class="form-select"></select>
+                                    <label for="camera-chooser" class="d-none">Choose camera</label>
+                                    <select class="form-select" id="camera-chooser"></select>
                                     <video class="mt-3"></video>
                                 </div>
                             </div>

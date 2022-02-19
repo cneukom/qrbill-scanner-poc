@@ -95,11 +95,11 @@ class AppController extends Controller
         $device = $this->resolveDevice($request->session());
 
         RemoteScan::create([
-            'content' => $request->post('content'),
+            'content' => json_encode($request->post('content')),
             'session_id' => $device->session_id,
         ]);
 
-        return redirect(route('scan')); // TODO replace by API response
+        return (object)[];
     }
 
     public function listen(Request $request)
@@ -118,7 +118,10 @@ class AppController extends Controller
                 $scan->update(['seen_at' => now()]);
                 return [
                     'type' => 'scan',
-                    'data' => $scan->only(['created_at', 'content']),
+                    'data' => [
+                        'created_at' => $scan->created_at,
+                        'content' => json_decode($scan->content),
+                    ],
                 ];
             }
 
@@ -133,6 +136,6 @@ class AppController extends Controller
 
             usleep(1000 * $breakMs);
         }
-        return [];
+        return (object)[];
     }
 }

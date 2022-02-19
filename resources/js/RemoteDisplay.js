@@ -7,7 +7,7 @@ export default class RemoteDisplay {
 
 
     /**
-     * @param data QRBill
+     * @param data {QRBill}
      */
     update(data) {
         axios.post(this.#url, {

@@ -1,3 +1,5 @@
+import RemoteListener from "./RemoteListener";
+
 require('./bootstrap');
 import bootstrap from 'bootstrap';
 import BillDisplay from './BillDisplay';
@@ -13,7 +15,9 @@ addEventListener('load', function () {
     if (container) {
         let display = document.querySelector('[data-bill-display-poll]');
         if (display) {
-            new Scanner(container, new BillDisplay(display)).init();
+            let billDisplay = new BillDisplay(display);
+            new Scanner(container, billDisplay).init();
+            new RemoteListener(billDisplay, display.dataset.billDisplayPoll);
         } else {
             display = document.querySelector('[data-remote-display-url]');
             if (display) {

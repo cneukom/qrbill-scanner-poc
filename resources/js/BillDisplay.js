@@ -23,7 +23,7 @@ export default class BillDisplay {
     }
 
     /**
-     * @param data QRBill
+     * @param data {QRBill}
      */
     update(data) {
         if (this.#hintDisplay) {
