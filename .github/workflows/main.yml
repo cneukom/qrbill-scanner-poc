@@ -44,6 +44,10 @@ jobs:
       - name: Generate Application Key
         run: php8.1 artisan key:generate
 
+      - name: Fake Mix Manifest
+        run: |
+          echo '{"/js/app.js":"/js/app.js","/css/app.css":"/css/app.css"}' > public/mix-manifest.json
+
       - name: Run PHP Tests
         run: php8.1 artisan test
 
