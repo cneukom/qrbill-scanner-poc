@@ -196,4 +196,6 @@ return [
     */
 
     'same_site' => 'lax',
+
+    'purge_timeout' => env('SESSION_PURGE_TIMEOUT', 3600),
 ];
