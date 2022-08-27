@@ -2,31 +2,34 @@
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
- * App\Models\RemoteScan
+ * App\Models\RemoteScan.
  *
- * @property int $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $session_id
- * @property string $content
- * @method static \Illuminate\Database\Eloquent\Builder|RemoteScan newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|RemoteScan newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|RemoteScan query()
- * @method static \Illuminate\Database\Eloquent\Builder|RemoteScan whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RemoteScan whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RemoteScan whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RemoteScan whereSessionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|RemoteScan whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property int         $id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property int         $session_id
+ * @property string      $content
  * @property string|null $seen_at
- * @property-read \App\Models\Session $session
- * @method static \Illuminate\Database\Eloquent\Builder|RemoteScan whereSeenAt($value)
+ * @property Session     $session
+ *
+ * @method static Builder|RemoteScan newModelQuery()
+ * @method static Builder|RemoteScan newQuery()
+ * @method static Builder|RemoteScan query()
  * @method static Builder|RemoteScan unseen()
+ * @method static Builder|RemoteScan whereContent($value)
+ * @method static Builder|RemoteScan whereCreatedAt($value)
+ * @method static Builder|RemoteScan whereId($value)
+ * @method static Builder|RemoteScan whereSessionId($value)
+ * @method static Builder|RemoteScan whereUpdatedAt($value)
+ * @method static Builder|RemoteScan whereSeenAt($value)
+ * @mixin Eloquent
  */
 class RemoteScan extends Model
 {

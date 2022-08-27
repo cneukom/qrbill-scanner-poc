@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Device;
 use App\Models\RemoteScan;
 use App\Models\Session;
+use Illuminate\Contracts\Session\Session as SessionStore;
 use Illuminate\Http\Request;
-use Illuminate\Session\Store;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class AppController extends Controller
 {
-    private function initializeSession(Store $store): Session
+    private function initializeSession(SessionStore $sessionStore): Session
     {
-        if ($store->has('sessionId')) {
-            $session = Session::find($store->get('sessionId'));
+        if ($sessionStore->has('sessionId')) {
+            $session = Session::find($sessionStore->get('sessionId'));
             if ($session) {
                 return $session;
             }
@@ -23,13 +23,13 @@ class AppController extends Controller
         $session = Session::create([
             'token' => \Str::random(48),
         ]);
-        $store->put('sessionId', $session->id);
+        $sessionStore->put('sessionId', $session->id);
         return $session;
     }
 
     public function index(Request $request)
     {
-        $store = $request->session();
+        $store   = $request->session();
         $session = $this->initializeSession($store);
 
         return view('index', [
@@ -57,13 +57,13 @@ class AppController extends Controller
         return redirect(route('scan'));
     }
 
-    private function resolveDevice(Store $store): Device
+    private function resolveDevice(SessionStore $sessionStore): Device
     {
-        if (!$store->has('deviceId')) {
+        if (!$sessionStore->has('deviceId')) {
             throw new AccessDeniedHttpException();
         }
 
-        $device = Device::find($store->get('deviceId'));
+        $device = Device::find($sessionStore->get('deviceId'));
         if (!$device) {
             throw new AccessDeniedHttpException();
         }
@@ -85,11 +85,11 @@ class AppController extends Controller
         $device = $this->resolveDevice($request->session());
 
         RemoteScan::create([
-            'content' => json_encode($request->post('content')),
+            'content'    => json_encode($request->post('content')),
             'session_id' => $device->session_id,
         ]);
 
-        return (object)[];
+        return (object) [];
     }
 
     public function listen(Request $request)
@@ -100,9 +100,9 @@ class AppController extends Controller
         }
 
         $sessionId = $store->get('sessionId');
-        $attempts = config('app.poll.attempts');
-        $breakMs = config('app.poll.break_ms');
-        for ($attempt = 0; $attempt < $attempts; $attempt++) {
+        $attempts  = config('app.poll.attempts');
+        $breakMs   = config('app.poll.break_ms');
+        for ($attempt = 0; $attempt < $attempts; ++$attempt) {
             $scan = RemoteScan::unseen()->where('session_id', $sessionId)->first();
             if ($scan) {
                 $scan->update(['seen_at' => now()]);
@@ -110,7 +110,7 @@ class AppController extends Controller
                     'type' => 'scan',
                     'data' => [
                         'created_at' => $scan->created_at,
-                        'content' => json_decode($scan->content),
+                        'content'    => json_decode($scan->content),
                     ],
                 ];
             }
@@ -126,6 +126,6 @@ class AppController extends Controller
 
             usleep(1000 * $breakMs);
         }
-        return (object)[];
+        return (object) [];
     }
 }

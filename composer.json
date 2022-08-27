@@ -10,12 +10,14 @@
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
         "deployer/deployer": "^7.0",
         "fakerphp/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^3.10",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",

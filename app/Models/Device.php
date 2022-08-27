@@ -2,29 +2,32 @@
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Device
+ * App\Models\Device.
  *
- * @property int $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int         $id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $seen_at
- * @method static \Illuminate\Database\Eloquent\Builder|Device newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Device newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Device query()
- * @method static \Illuminate\Database\Eloquent\Builder|Device whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Device whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Device whereSeenAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Device whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property int $session_id
- * @method static \Illuminate\Database\Eloquent\Builder|Device whereSessionId($value)
- * @property-read \App\Models\Session $session
+ * @property Session     $session
+ * @property int         $session_id
+ *
+ * @method static Builder|Device newModelQuery()
+ * @method static Builder|Device newQuery()
+ * @method static Builder|Device query()
  * @method static Builder|Device unseen()
+ * @method static Builder|Device whereCreatedAt($value)
+ * @method static Builder|Device whereId($value)
+ * @method static Builder|Device whereSeenAt($value)
+ * @method static Builder|Device whereUpdatedAt($value)
+ * @method static Builder|Device whereSessionId($value)
+ * @mixin Eloquent
  */
 class Device extends Model
 {
