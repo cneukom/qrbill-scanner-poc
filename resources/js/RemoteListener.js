@@ -3,15 +3,19 @@ export default class RemoteListener {
     #billDisplay;
     /** @type {String} */
     #pollUrl;
+    /** @type {ToastFactory} */
+    #toastFactory;
 
     /**
      *
      * @param billDisplay {BillDisplay}
      * @param pollUrl {String}
+     * @param toastFactory {ToastFactory}
      */
-    constructor(billDisplay, pollUrl) {
+    constructor(billDisplay, pollUrl, toastFactory) {
         this.#billDisplay = billDisplay;
         this.#pollUrl = pollUrl;
+        this.#toastFactory = toastFactory;
         this.poll();
     }
 
@@ -20,7 +24,7 @@ export default class RemoteListener {
             .then((result) => {
                 switch(result.data.type) {
                     case 'device':
-                        console.log('new scanner registered');
+                        this.#toastFactory.createSimpleSuccessToast('New smartphone registered');
                         break;
                     case 'scan':
                         this.#billDisplay.update(result.data.data.content);

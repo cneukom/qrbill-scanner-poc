@@ -40,8 +40,8 @@
                             </div>
                             <div class="tab-pane fade" id="pills-smartphone" role="tabpanel"
                                  aria-labelledby="pills-smartphone-tab">
-                                <p>Scan this QR code with your mobile phone. Hint: some browsers (e.g. Firefox Mobile)
-                                    come with an integrated QR code scanner.</p>
+                                <p>Scan this QR code with your mobile phone. Hint: some native camera apps and mobile
+                                    browsers (e.g. Firefox Mobile) come with an integrated QR code scanner.</p>
                                 <canvas data-qr-link="{{ route('registerScanner', [$token]) }}"></canvas>
                             </div>
                         </div>
@@ -52,6 +52,10 @@
                         <div data-bill-display-poll="{{ route('listen') }}">
                             <div data-not-available-hint class="alert alert-info">Please scan a QR bill.</div>
                             <table data-bill-data-table class="table d-none">
+                                <tr>
+                                    <th>IBAN</th>
+                                    <td data-iban></td>
+                                </tr>
                                 <tr>
                                     <th>Creditor Name</th>
                                     <td data-creditor></td>
@@ -87,6 +91,7 @@
                 </form>
             </div>
         </div>
+        <div data-toast-container class="position-absolute top-0 end-0"></div>
         <p class="mt-3 text-center">A Proof of Concept by <a href="https://cneukom.ch">Cédric Neukom</a></p>
     </div>
 </x-root>

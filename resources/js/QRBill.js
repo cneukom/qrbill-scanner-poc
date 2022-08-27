@@ -10,11 +10,12 @@ export default class QRBill {
         if (lines[1] !== '0200') {
             throw "QR bill version not supported";
         }
+        this.iban = lines[3].replace(/(.{1,4})/g, '$1 ').trim();
         this.creditor = lines[5];
         this.amount = lines[18];
         this.currency = lines[19];
         this.debtor = lines[21];
-        this.reference = lines[28];
+        this.reference = lines[28].reverse().replace(/(.{1,5})/g, '$1 ').trim().reverse();
         this.message = lines[29];
     }
 }

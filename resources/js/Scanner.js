@@ -7,12 +7,16 @@ export default class Scanner {
     #video;
     #display;
     #controls;
+    /** @type {ToastFactory} */
+    #toastFactory;
+    #recentBillData;
 
-    constructor(previewContainer, display) {
+    constructor(previewContainer, display, toastFactory) {
         this.#previewContainer = previewContainer;
         this.#deviceChooser = previewContainer.querySelector('select');
         this.#video = previewContainer.querySelector('video');
         this.#display = display;
+        this.#toastFactory = toastFactory;
 
         if (!this.#deviceChooser || !this.#video) {
             throw "previewContainer must contain a select and a video element";
@@ -24,11 +28,11 @@ export default class Scanner {
         let devices;
         try {
             devices = await BrowserQRCodeReader.listVideoInputDevices();
-        } catch(e) {
-            this.#previewContainer.innerHTML = '<div class="alert alert-danger">'+e+'</div>';
+        } catch (e) {
+            this.#previewContainer.innerHTML = '<div class="alert alert-danger">' + e + '</div>';
         }
         if (devices.length === 0) {
-            this.#previewContainer.innerHTML = '<div class="alert alert-warning">No cameras found. Please try the Smartphone PoC.</div>';
+            this.#previewContainer.innerHTML = '<div class="alert alert-warning">No cameras found. Please try scanning using a smartphone.</div>';
         } else {
             for (let i = 0; i < devices.length; i++) {
                 let option = document.createElement('option');
@@ -48,9 +52,26 @@ export default class Scanner {
 
         this.#controls = await new BrowserQRCodeReader().decodeFromVideoDevice(deviceId, this.#video, (result) => {
             if (result) {
-                let bill = new QRBill(result.text);
-                this.#display.update(bill);
+                this.#updateDisplay(result.getText());
             }
         });
+    }
+
+    #updateDisplay(data) {
+        if (this.#recentBillData === data) {
+            return;
+        }
+        try {
+            let bill = new QRBill(data);
+            this.#display.update(bill);
+            this.#recentBillData = data;
+            setTimeout(() => this.#recentBillData = null, 5000);
+        } catch (error) {
+            if (typeof error === 'string') {
+                this.#toastFactory.createSimpleErrorToast(error);
+            } else {
+                console.error(error);
+            }
+        }
     }
 }

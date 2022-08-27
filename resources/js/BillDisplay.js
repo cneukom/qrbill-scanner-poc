@@ -1,5 +1,5 @@
 export default class BillDisplay {
-    #displayKeys = ['creditor', 'amount', 'currency', 'debtor', 'reference', 'message'];
+    #displayKeys = ['iban', 'creditor', 'amount', 'currency', 'debtor', 'reference', 'message'];
     #displays = {};
     #hintDisplay;
     #displayTable;
