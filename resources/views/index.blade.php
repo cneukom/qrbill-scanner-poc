@@ -57,8 +57,8 @@
                                     <td data-iban></td>
                                 </tr>
                                 <tr>
-                                    <th>Creditor Name</th>
-                                    <td data-creditor></td>
+                                    <th>Creditor</th>
+                                    <td data-creditor class="text-pre-wrap"></td>
                                 </tr>
                                 <tr>
                                     <th>Amount</th>
@@ -68,8 +68,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Debtor Name</th>
-                                    <td data-debtor></td>
+                                    <th>Debtor</th>
+                                    <td data-debtor class="text-pre-wrap"></td>
                                 </tr>
                                 <tr>
                                     <th>Reference</th>
