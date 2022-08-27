@@ -89,12 +89,14 @@ jobs:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           SERVERS_YAML: ${{ secrets.SERVERS_YAML }}
           SSH_CONFIG: ${{ secrets.SSH_CONFIG }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
         run: |
           eval "$(ssh-agent -s)"
           ssh-add - <<< "${DEPLOY_KEY}"
           mkdir ~/.ssh
           echo "${SERVERS_YAML}" > servers.yaml
           echo "${SSH_CONFIG}" > ~/.ssh/config
+          echo "${SSH_KNOWN_HOSTS}" > ~/.ssh/known_hosts
           if [[ $GITHUB_REF == "refs/heads/main" ]]
           then
             php8.1 vendor/bin/dep deploy production --no-interaction
