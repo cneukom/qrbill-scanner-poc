@@ -1,4 +1,6 @@
 @import 'bootstrap';
+@import 'bootstrap-icons';
+@import 'bootstrap/scss/variables';
 
 a[href] {
     text-decoration: none;
@@ -14,4 +16,82 @@ video {
 
 .text-pre-wrap {
     white-space: pre-wrap;
+}
+
+a.copy-button {
+    cursor: pointer;
+    position: relative;
+
+    > i {
+        opacity: 0;
+        transition: opacity .25s;
+
+        + i {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        &.success {
+            color: $success;
+        }
+
+        &.error {
+            color: $danger;
+        }
+
+        &.disabled {
+            color: $text-muted;
+        }
+    }
+
+    &.success {
+        animation-name: success;
+        animation-duration: .6s;
+    }
+
+    &.error {
+        animation-name: error;
+        animation-duration: .6s;
+    }
+
+    &.default > i.default,
+    &.success > i.success,
+    &.error > i.error {
+        opacity: 1;
+    }
+}
+
+.copiable-disabled {
+    a.copy-button {
+        > i {
+            cursor: default;
+            opacity: 0 !important;
+
+            &.disabled {
+                opacity: 1 !important;
+            }
+        }
+    }
+}
+
+@keyframes error {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    16.666666667%, 50%, 83.333333333% {
+        transform: translate(-.5em, 0);
+    }
+    33.333333333%, 66.666666667% {
+        transform: translate(.5em, 0);
+    }
+}
+
+@keyframes success {
+    0%, 100% {
+        transform: scale3d(1, 1, 1);
+    }
+    50% {
+        transform: scale3d(1.4, 1.4, 1.4);
+    }
 }

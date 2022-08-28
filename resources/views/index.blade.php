@@ -54,16 +54,16 @@
                             <table data-bill-data-table class="table d-none">
                                 <tr>
                                     <th>IBAN</th>
-                                    <td data-iban></td>
+                                    <td data-iban data-copiable></td>
                                 </tr>
                                 <tr>
                                     <th>Creditor</th>
-                                    <td data-creditor class="text-pre-wrap"></td>
+                                    <td data-creditor data-copiable class="text-pre-wrap"></td>
                                 </tr>
                                 <tr>
                                     <th>Amount</th>
                                     <td>
-                                        <span data-amount></span>
+                                        <span data-amount data-copiable></span>
                                         <span data-currency></span>
                                     </td>
                                 </tr>
@@ -73,11 +73,11 @@
                                 </tr>
                                 <tr>
                                     <th>Reference</th>
-                                    <td data-reference></td>
+                                    <td data-reference data-copiable></td>
                                 </tr>
                                 <tr>
                                     <th>Message</th>
-                                    <td data-message></td>
+                                    <td data-message data-copiable></td>
                                 </tr>
                             </table>
                         </div>

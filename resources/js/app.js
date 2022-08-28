@@ -18,7 +18,7 @@ addEventListener('load', function () {
     if (container) {
         let display = document.querySelector('[data-bill-display-poll]');
         if (display) {
-            const billDisplay = new BillDisplay(display);
+            const billDisplay = new BillDisplay(display, toastFactory);
             new Scanner(container, billDisplay, toastFactory).init();
             new RemoteListener(billDisplay, display.dataset.billDisplayPoll, toastFactory);
         } else {
