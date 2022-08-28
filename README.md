@@ -1,64 +1,45 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Proof of Concept: Scan QR bills from e-banking
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The introduction of the payment standard for [Swiss QR bills](https://www.paymentstandards.ch/dam/downloads/ig-qr-bill-2019-en.pdf) makes paying bills incredibly easy - in theory.
+Unfortunately, many banks impose unnecessary obstacles, such as requiring mobile banking (resulting in full access to your bank accounts on your mobile phone).
+While mobile banking is convenient, there may be good reasons not to use it, such as security concerns.
+Hence, banks should refrain from forcing their customers to use it.
 
-## About Laravel
+Also, not using mobile banking does not need to imply inferior experience for the end-user.
+Modern browsers are capable of scanning QR bill payment slips in a straight-forward manner, without external tools, as this PoC demonstrates.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Scan QR bills
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This PoC demonstrates, that e-banking applications can offer two ways to scan QR bill payment slips, both of them easy to use:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Using the webcam of the computer directly - no additional software needed.
+2. Using an external smartphone that is connected to your e-banking session by simply scanning another QR code - no additional apps needed.  
 
-## Learning Laravel
+## Try it now
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+You can find this PoC running at [qrbill.poc.cneukom.ch](https://qrbill.poc.cneukom.ch).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+When you want to scan a QR bill, the PoC should be self-explanatory.
+Nevertheless, the following explains the two ways briefly.
 
-## Laravel Sponsors
+### Scan a QR bill with your webcam
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+This option requires a webcam connected or built in to your computer.
 
-### Premium Partners
+1. [Go to the PoC](https://qrbill.poc.cneukom.ch).
+2. When your browser asks whether the website can get access to your camera, allow it.
+3. Hold a QR bill in front of your camera, such that the website can scan it.
+4. The website will display the data encoded in the QR bill.
+5. You can now use this data to make a payment in your real e-banking.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Scan a QR bill with your smartphone
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. [Go to the PoC](https://qrbill.poc.cneukom.ch).
+2. When your browser asks whether the website can get access to your camera, deny it.
+3. The website should automatically switch to the smartphone tab.
+If this does not happen (e.g. because you allowed the access to your camera), click on the "Smartphone" tab manually.
+4. Open a QR code scanner on your mobile phone (some camera apps and mobile browsers include a QR code scanner) and point it to the QR code that is displayed by the website.
+5. On your smartphone, when your mobile browser asks whether the website can get access to your camera, allow it.
+6. Point your mobile phone camera to the QR bill, such that the website can scan it.
+7. The smartphone will transmit the data encoded in the QR bill to the browser on your computer, which in turn will display it.
+8. You can now use this data to make a payment in your real e-banking.
