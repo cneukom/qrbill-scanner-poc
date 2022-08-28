@@ -24,7 +24,8 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-smartphone-tab" data-bs-toggle="pill"
                                         data-bs-target="#pills-smartphone" type="button" role="tab"
-                                        aria-controls="pills-profile" aria-selected="false">
+                                        aria-controls="pills-profile" aria-selected="false"
+                                        data-show-on-cameradenied>
                                     Smartphone
                                 </button>
                             </li>

@@ -2,21 +2,32 @@ import {BrowserQRCodeReader} from "@zxing/browser";
 import QRBill from "./QRBill";
 
 export default class Scanner {
+    /** @type {HTMLElement} */
     #previewContainer;
-    #deviceChooser;
-    #video;
+    /** @type {HTMLElement} */
     #display;
-    #controls;
     /** @type {ToastFactory} */
     #toastFactory;
+    /** @type {CameraErrorHandler} */
+    #cameraErrorHandler;
+    #deviceChooser;
+    #video;
+    #controls;
     #recentBillData;
 
-    constructor(previewContainer, display, toastFactory) {
+    /**
+     * @param previewContainer {HTMLElement}
+     * @param display {HTMLElement}
+     * @param toastFactory {ToastFactory}
+     * @param cameraErrorHandler {CameraErrorHandler}
+     */
+    constructor(previewContainer, display, toastFactory, cameraErrorHandler) {
         this.#previewContainer = previewContainer;
         this.#deviceChooser = previewContainer.querySelector('select');
         this.#video = previewContainer.querySelector('video');
         this.#display = display;
         this.#toastFactory = toastFactory;
+        this.#cameraErrorHandler = cameraErrorHandler;
 
         if (!this.#deviceChooser || !this.#video) {
             throw "previewContainer must contain a select and a video element";
@@ -39,10 +50,12 @@ export default class Scanner {
                 this.#previewContainer.innerHTML = '<div class="alert alert-danger">' + error + '</div>';
             } else {
                 console.error(error);
+                this.#cameraErrorHandler.triggerAccessDenied();
             }
+            return;
         }
         if (devices.length === 0) {
-            this.#previewContainer.innerHTML = '<div class="alert alert-warning">No cameras found. Please try scanning using a smartphone.</div>';
+            this.#cameraErrorHandler.triggerNoCamera();
         } else {
             this.#updateDeviceChooser(devices, selectedDeviceId);
             await this.#scanFromStream(stream);
