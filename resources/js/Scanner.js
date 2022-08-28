@@ -21,40 +21,68 @@ export default class Scanner {
         if (!this.#deviceChooser || !this.#video) {
             throw "previewContainer must contain a select and a video element";
         }
-        this.#deviceChooser.addEventListener('change', () => this.scan(this.#deviceChooser.value));
+        this.#deviceChooser.addEventListener('change', () => this.#scanFromVideoDevice(this.#deviceChooser.value));
     }
 
     async init() {
-        let devices;
+        let devices, selectedDeviceId, stream;
         try {
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: 'environment',
+                },
+            });
+            selectedDeviceId = stream.getVideoTracks()[0].getSettings().deviceId;
             devices = await BrowserQRCodeReader.listVideoInputDevices();
-        } catch (e) {
-            this.#previewContainer.innerHTML = '<div class="alert alert-danger">' + e + '</div>';
+        } catch (error) {
+            if (typeof error === 'string') {
+                this.#previewContainer.innerHTML = '<div class="alert alert-danger">' + error + '</div>';
+            } else {
+                console.error(error);
+            }
         }
         if (devices.length === 0) {
             this.#previewContainer.innerHTML = '<div class="alert alert-warning">No cameras found. Please try scanning using a smartphone.</div>';
         } else {
-            for (let i = 0; i < devices.length; i++) {
-                let option = document.createElement('option');
-                option.value = devices[i].deviceId;
-                option.text = devices[i].label;
-                this.#deviceChooser.appendChild(option);
-            }
-
-            await this.scan(this.#deviceChooser.value);
+            this.#updateDeviceChooser(devices, selectedDeviceId);
+            await this.#scanFromStream(stream);
         }
     }
 
-    async scan(deviceId) {
+    #updateDeviceChooser(devices, selectedDeviceId) {
+        for (let i = 0; i < devices.length; i++) {
+            let option = document.createElement('option');
+            option.value = devices[i].deviceId;
+            option.text = devices[i].label;
+            if (option.value === selectedDeviceId) {
+                option.selected = true;
+            }
+            this.#deviceChooser.appendChild(option);
+        }
+    }
+
+    async #scanFromStream(stream) {
         if (this.#controls) {
             this.#controls.stop();
         }
 
-        this.#controls = await new BrowserQRCodeReader().decodeFromVideoDevice(deviceId, this.#video, (result) => {
+        this.#controls = await new BrowserQRCodeReader().decodeFromStream(stream, this.#video, this.#scanCallback());
+    }
+
+    async #scanFromVideoDevice(deviceId) {
+        if (this.#controls) {
+            this.#controls.stop();
+        }
+
+        this.#controls = await new BrowserQRCodeReader().decodeFromVideoDevice(deviceId, this.#video, this.#scanCallback());
+    }
+
+    #scanCallback() {
+        return (result) => {
             if (result) {
                 this.#updateDisplay(result.getText());
             }
-        });
+        }
     }
 
     #updateDisplay(data) {
