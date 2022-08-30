@@ -95,7 +95,7 @@
         <div data-toast-container class="position-absolute top-0 end-0"></div>
         <p class="mt-3 text-center">
             An <a href="https://github.com/cneukom/qrbill-scanner-poc" target="_blank">open source Proof of Concept</a>
-            by <a href="https://cneukom.ch">Cédric Neukom</a>
+            by <a href="https://github.com/cneukom">Cédric Neukom</a>
         </p>
     </div>
 </x-root>
