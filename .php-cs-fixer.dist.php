@@ -6,16 +6,17 @@ $finder = PhpCsFixer\Finder::create()
     ->in('database')
     ->in('routes')
     ->in('resources/lang')
-    ->in('tests')
-;
+    ->in('tests');
 
 $config = new PhpCsFixer\Config();
 return $config->setRules([
-        '@Symfony' => true,
-        'binary_operator_spaces' => [
-            'default' => 'align',
-        ],
-        'blank_line_before_statement' => [],
-    ])
-    ->setFinder($finder)
-;
+    '@Symfony' => true,
+    'binary_operator_spaces' => [
+        'default' => 'align',
+    ],
+    'blank_line_before_statement' => [],
+    'global_namespace_import' => [
+        'import_classes' => true,
+    ],
+])
+    ->setFinder($finder);

@@ -7,6 +7,7 @@ use App\Models\RemoteScan;
 use App\Models\Session;
 use Illuminate\Contracts\Session\Session as SessionStore;
 use Illuminate\Http\Request;
+use Str;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class AppController extends Controller
@@ -21,7 +22,7 @@ class AppController extends Controller
         }
 
         $session = Session::create([
-            'token' => \Str::random(48),
+            'token' => Str::random(48),
         ]);
         $sessionStore->put('sessionId', $session->id);
         return $session;

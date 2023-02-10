@@ -29,6 +29,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|RemoteScan whereSessionId($value)
  * @method static Builder|RemoteScan whereUpdatedAt($value)
  * @method static Builder|RemoteScan whereSeenAt($value)
+ *
  * @mixin Eloquent
  */
 class RemoteScan extends Model

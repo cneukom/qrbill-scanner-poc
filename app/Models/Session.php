@@ -28,6 +28,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Session whereId($value)
  * @method static Builder|Session whereToken($value)
  * @method static Builder|Session whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class Session extends Model

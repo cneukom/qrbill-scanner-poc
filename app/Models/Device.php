@@ -27,6 +27,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Device whereSeenAt($value)
  * @method static Builder|Device whereUpdatedAt($value)
  * @method static Builder|Device whereSessionId($value)
+ *
  * @mixin Eloquent
  */
 class Device extends Model
