@@ -14,7 +14,9 @@ return $config->setRules([
     'binary_operator_spaces' => [
         'default' => 'align',
     ],
-    'blank_line_before_statement' => [],
+    'blank_line_before_statement' => [
+        'statements' => [],
+    ],
     'global_namespace_import' => [
         'import_classes' => true,
     ],
