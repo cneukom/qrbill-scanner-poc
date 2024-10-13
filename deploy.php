@@ -8,7 +8,7 @@ require 'recipe/laravel.php';
 
 set('repository', 'git@github.com:cneukom/qrbill-scanner-poc.git');
 set('git_ssh_command', 'ssh -o StrictHostKeyChecking=yes');
-set('bin/php', '/usr/local/bin/php81');
+set('bin/php', '/usr/local/bin/php82');
 
 add('shared_files', []);
 add('shared_dirs', []);
